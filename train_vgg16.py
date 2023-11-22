@@ -76,40 +76,40 @@ def plot_accuracy(epochs, train_accuracies, val_accuracies):
 
 
 if __name__ == '__main__':
-    # train_dl, val_dl = get_data()
-    # model, loss_fn, optimizer = get_model()
+    train_dl, val_dl = get_data()
+    model, loss_fn, optimizer = get_model()
 
-    # train_losses, train_accuracies, val_accuracies = [], [], []
-    # for epoch in range(5):
-    #     print(f" epoch {epoch + 1} / 5")
-    #     train_epoch_losses, train_epoch_accuracies, val_epoch_accuracies = [], [], []
+    train_losses, train_accuracies, val_accuracies = [], [], []
+    for epoch in range(5):
+        print(f" epoch {epoch + 1} / 5")
+        train_epoch_losses, train_epoch_accuracies, val_epoch_accuracies = [], [], []
 
-    #     for ix, batch in enumerate(train_dl):
-    #         x, y = batch
-    #         batch_loss = train_batch(x, y, model, optimizer, loss_fn)
-    #         train_epoch_losses.append(batch_loss)
-    #     train_epoch_losses = np.array(train_epoch_losses).mean()
+        for ix, batch in enumerate(train_dl):
+            x, y = batch
+            batch_loss = train_batch(x, y, model, optimizer, loss_fn)
+            train_epoch_losses.append(batch_loss)
+        train_epoch_losses = np.array(train_epoch_losses).mean()
 
-    #     for ix, batch in enumerate(train_dl):
-    #         x, y = batch
-    #         train_is_correct = accuracy(x, y, model)
-    #         train_epoch_accuracies.extend(train_is_correct)
-    #     train_epoch_accuracy = np.mean(train_epoch_accuracies)
+        for ix, batch in enumerate(train_dl):
+            x, y = batch
+            train_is_correct = accuracy(x, y, model)
+            train_epoch_accuracies.extend(train_is_correct)
+        train_epoch_accuracy = np.mean(train_epoch_accuracies)
 
-    #     for ix, batch in enumerate(val_dl):
-    #         x, y = batch
-    #         val_is_correct = accuracy(x, y, model)
-    #         val_epoch_accuracies.extend(val_is_correct)
-    #     val_epoch_accuracy = np.mean(val_epoch_accuracies)
+        for ix, batch in enumerate(val_dl):
+            x, y = batch
+            val_is_correct = accuracy(x, y, model)
+            val_epoch_accuracies.extend(val_is_correct)
+        val_epoch_accuracy = np.mean(val_epoch_accuracies)
 
-    #     train_losses.append(train_epoch_losses)
-    #     train_accuracies.append(train_epoch_accuracy)
-    #     val_accuracies.append(val_epoch_accuracy)
+        train_losses.append(train_epoch_losses)
+        train_accuracies.append(train_epoch_accuracy)
+        val_accuracies.append(val_epoch_accuracy)
 
-    # np.savez('data',
-    #          train_losses=train_losses,
-    #          train_accuracies=train_accuracies,
-    #          val_accuracies=val_accuracies)
+    np.savez('vgg16_data',
+             train_losses=train_losses,
+             train_accuracies=train_accuracies,
+             val_accuracies=val_accuracies)
 
-    # data = np.load('data.npz')
+    # data = np.load('vgg16_data.npz')
     # plot_accuracy(5, data['train_accuracies'], data['train_accuracies'])
