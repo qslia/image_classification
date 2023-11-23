@@ -1,7 +1,7 @@
 import torchvision
 import torch.nn as nn
 import torch
-from default import DEVICE, TRAIN_DIR, TEST_DIR
+from default import DEVICE, CAT_DOG_TRAIN_DIR, CAT_DOG_TEST_DIR
 from dataset import cat_dog
 import numpy as np
 
@@ -43,8 +43,8 @@ def accuracy(x, y, model):
 
 
 def get_data():
-    train = cat_dog(TRAIN_DIR, DEVICE)
-    val = cat_dog(TEST_DIR, DEVICE)
+    train = cat_dog(CAT_DOG_TRAIN_DIR, DEVICE)
+    val = cat_dog(CAT_DOG_TEST_DIR, DEVICE)
     train_dl = torch.utils.data.DataLoader(train, batch_size=32,
                                            shuffle=True, drop_last=True)
     val_dl = torch.utils.data.DataLoader(val, batch_size=32,

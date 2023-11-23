@@ -5,7 +5,7 @@ from torchvision.transforms import transforms
 import random
 import cv2
 from dataset import cat_dog
-from default import TRAIN_DIR, TEST_DIR, DEVICE
+from default import CAT_DOG_TRAIN_DIR, CAT_DOG_TEST_DIR, DEVICE
 import torch.nn as nn
 from torch.utils.data import DataLoader
 import numpy as np
@@ -48,10 +48,10 @@ def accuracy(x, y, model):
 
 
 def get_data():
-    train_data = cat_dog(TRAIN_DIR, DEVICE)
+    train_data = cat_dog(CAT_DOG_TRAIN_DIR, DEVICE)
     train_dl = DataLoader(train_data, batch_size=32,
                           shuffle=True, drop_last=True)
-    val_data = cat_dog(TEST_DIR, DEVICE)
+    val_data = cat_dog(CAT_DOG_TEST_DIR, DEVICE)
     val_dl = DataLoader(val_data, batch_size=32, shuffle=True, drop_last=True)
 
     return train_dl, val_dl

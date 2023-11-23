@@ -2,3 +2,5 @@
 
 # Facial_Keypoints_dataset
 git clone https://github.com/udacity/P1_Facial_Keypoints.git
+
+- change default.py to your custom dataset path
