@@ -7,3 +7,5 @@ DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 FACE_KEYPOINTS_TRAIN_DIR = 'data/training/'
 FACE_KEYPOINTS_TEST_DIR = 'data/test'
 FACE_KEYPOINTS_ROOT_DIR = 'data'
+
+FAIRFACE_ROOT_DIR = 'fairface-img-margin025-trainval'
