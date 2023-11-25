@@ -7,7 +7,7 @@ import os
 from copy import deepcopy
 import numpy as np
 from default import FACE_KEYPOINTS_TRAIN_DIR, DEVICE, FAIRFACE_ROOT_DIR
-
+from torch_snippets import read, resize
 
 class cat_dog(torch.utils.data.Dataset):
     def __init__(self, folder, device):
@@ -117,3 +117,40 @@ class GenderAgeClass(torch.utils.data.Dataset):
                          for x in [ages, genders]]
         ims = torch.cat(ims).to(DEVICE)
         return ims, ages, genders
+    
+class GenderAgeClass2(torch.utils.data.Dataset):
+    def __init__(self, df):
+        self.df = df 
+        self.normalize = transforms.Normalize(
+            mean=[0.485, 0.456,0.406],
+            std=[0.229, 0.224, 0.225]
+        )
+    
+    def __len__(self):
+        return len(self.df)
+    
+    def __getitem__(self, ix):
+        f = self.df.iloc[ix]
+        file = os.path.join(FAIRFACE_ROOT_DIR, f.file)
+        gender = f.gender == 'Female'
+        age = f.age 
+        im = read(file, 1)
+        return im, age, gender
+    
+    def preprocess_image(self, im):
+        im = resize(im, IMAGE_SIZE)
+        im = torch.tensor(im).permute(2, 0, 1)
+        im = self.normalize(im/255.)
+        return im[None]
+    
+    def collate_fn(self, batch):
+        ims, ages, genders = [], [], []
+        for im, age, gender in batch:
+            im = self.preprocess_image(im)
+            ims.append(im)
+            ages.append(float(int(age)/80)) 
+            genders.append(float(gender))
+        ages, genders = [torch.tensor(x).to(DEVICE).float()
+                            for x in [ages, genders]]
+        ims = torch.cat(ims).to(DEVICE)
+        return ims, ages, genders            

@@ -8,4 +8,4 @@ FACE_KEYPOINTS_TRAIN_DIR = 'data/training/'
 FACE_KEYPOINTS_TEST_DIR = 'data/test'
 FACE_KEYPOINTS_ROOT_DIR = 'data'
 
-FAIRFACE_ROOT_DIR = 'fairface-img-margin025-trainval'
+FAIRFACE_ROOT_DIR = 'dataset/fairface-img-margin025-trainval'
